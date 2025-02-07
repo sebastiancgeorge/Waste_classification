@@ -3,8 +3,6 @@ tensorflow
 keras
 numpy
 pandas
-opengl
-pyopengl
-opencv-python
+opencv-python-headless
 ultralytics
 pillow
