@@ -13,9 +13,36 @@ model_filename = "ensemble_waste_classifier.h5"
 
 model_path = hf_hub_download(repo_id=repo_id, filename=model_filename)
 
-yolo_model = YOLO("yolov8n.pt")  # Use YOLOv8 pre-trained model
+class EnsembleModel(tf.keras.Model):
+    def __init__(self, models):
+        super(EnsembleModel, self).__init__()
+        self.models = models
+    
+    def call(self, inputs):
+        predictions = [model(inputs) for model in self.models]
+        return tf.reduce_mean(predictions, axis=0)
 
-waste_model = tf.keras.models.load_model(model_path)
+# Register the custom objects
+custom_objects = {'EnsembleModel': EnsembleModel}
+
+# Load models with custom objects
+@st.cache_resource
+def load_models():
+    try:
+        # Load YOLO model
+        yolo_model = YOLO("yolov8n.pt")
+        
+        # Load waste classifier with custom objects
+        with tf.keras.utils.custom_object_scope(custom_objects):
+            waste_model = tf.keras.models.load_model(model_path)
+        
+        return yolo_model, waste_model
+    except Exception as e:
+        st.error(f"Error loading models: {str(e)}")
+        return None, None
+
+# Load models
+yolo_model, waste_model = load_models()
 
 class_labels = ["Organic", "Recyclable"]
 
