@@ -6,3 +6,4 @@ pandas
 opencv-python-headless
 ultralytics
 pillow
+huggingface_hub
