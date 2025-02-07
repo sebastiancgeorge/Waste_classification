@@ -8,6 +8,8 @@ from ultralytics import YOLO
 from PIL import Image
 from huggingface_hub import hf_hub_download
 
+st.set_page_config(page_title="Waste Classifier", layout="wide")
+
 repo_id = "sebastiancgeorge/ensembled_waste_classification"
 model_filename = "ensemble_waste_classifier.h5"
 
@@ -97,7 +99,6 @@ def classify_real_time():
     cap.release()
     cv2.destroyAllWindows()
 
-st.set_page_config(page_title="Waste Classifier", layout="wide")
 st.title("♻ Waste Classification System")
 
 # Tabs for different functionalities
