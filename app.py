@@ -6,10 +6,16 @@ import numpy as np
 import cv2
 from ultralytics import YOLO
 from PIL import Image
+from huggingface_hub import hf_hub_download
+
+repo_id = "sebastiancgeorge/ensembled_waste_classification"
+model_filename = "ensemble_waste_classifier.h5"
+
+model_path = hf_hub_download(repo_id=repo_id, filename=model_filename)
 
 yolo_model = YOLO("yolov8n.pt")  # Use YOLOv8 pre-trained model
 
-waste_model = tf.keras.models.load_model("ensemble_waste_classifier.h5")
+waste_model = tf.keras.models.load_model(model_path)
 
 class_labels = ["Organic", "Recyclable"]
 
