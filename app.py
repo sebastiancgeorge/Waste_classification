@@ -36,7 +36,7 @@ def load_models():
         
         # Load waste classifier with custom objects
         with tf.keras.utils.custom_object_scope(custom_objects):
-            waste_model = tf.keras.models.load_model(model_path)
+            model = tf.keras.models.load_model(model_path)
         
         return yolo_model, waste_model
     except Exception as e:
