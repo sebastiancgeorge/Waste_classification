@@ -20,7 +20,7 @@ if 'models_loaded' not in st.session_state:
 # Constants
 class_labels = ["Organic", "Recyclable"]
 REPO_ID = "sebastiancgeorge/ensembled_waste_classification"
-MODEL_FILENAME = "ensemble_waste_classifier.h5"
+MODEL_FILENAME = "ensemble_waste_classifier.keras"
 
 @st.cache_resource
 def load_models():
