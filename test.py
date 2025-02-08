@@ -19,7 +19,7 @@ if 'models_loaded' not in st.session_state:
 # Constants
 CLASS_LABELS = ["Recyclable Waste", "Organic Waste"]
 REPO_ID = "sebastiancgeorge/ensembled_waste_classification"
-MODEL_FILENAME = "ensemble_waste_classifier.keras"
+MODEL_FILENAME = "ensemble_waste_classifier(1).keras"
 
 @keras.utils.register_keras_serializable()
 class EnsembleModel(keras.Model):
