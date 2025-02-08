@@ -50,7 +50,7 @@ def show_about():
     - **Purpose:** To assist in **automated waste sorting** for better recycling practices.
     - **Model Approach:** It combines multiple CNN architectures to improve accuracy and generalization.
     - **Dataset:** Trained using various publicly available waste classification datasets.
-    - **Developer:** [Your Name or Organization]
+    - **Developer:** Sebastian George
     """)
 
 # Streamlit UI
