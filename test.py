@@ -22,7 +22,7 @@ REPO_ID = "sebastiancgeorge/ensembled_waste_classification"
 MODEL_FILENAME = "ensemble_waste_classifier.keras"
 
 
-@keras.saving.register_keras_serializable()
+@tf.keras.utils.register_keras_serializable() 
 class EnsembleModel(keras.Model):
     def __init__(self, models, **kwargs):
         super().__init__(**kwargs)
