@@ -22,10 +22,11 @@ CLASS_LABELS = ["Recyclable Waste", "Organic Waste"]
 
 # Function to preprocess image
 def preprocess_image(image):
-    image = image.resize((224, 224))  # Adjust size to model's expected input
-    image = np.array(image) / 255.0   # Normalize
-    if image.mode != 'RGB':
-        image = image.convert('RGB')
+    if image.mode != 'RGB':  
+        image = image.convert('RGB')  # Convert grayscale images to RGB
+
+    image = image.resize((224, 224))  # Resize image
+    image = np.array(image) / 255.0   # Convert to NumPy array and normalize
     return np.expand_dims(image, axis=0)
 
 # Function to classify an image
