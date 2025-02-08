@@ -21,16 +21,26 @@ CLASS_LABELS = ["Recyclable Waste", "Organic Waste"]
 REPO_ID = "sebastiancgeorge/ensembled_waste_classification"
 MODEL_FILENAME = "ensemble_waste_classifier.keras"
 
-
-@tf.keras.utils.register_keras_serializable() 
+@tf.keras.utils.register_keras_serializable()  # Register the model for saving/loading
 class EnsembleModel(keras.Model):
     def __init__(self, models, **kwargs):
         super().__init__(**kwargs)
-        self.models = models  # List of models
+        self.models = models  # List of individual models
 
     def call(self, inputs, training=False):
+        """Averaging predictions from all models."""
         predictions = [model(inputs, training=training) for model in self.models]
         return tf.reduce_mean(tf.stack(predictions, axis=0), axis=0)  # Average predictions
+
+    def get_config(self):
+        """Returns the configuration of the model for serialization."""
+        return {"models": [keras.saving.serialize_keras_object(model) for model in self.models]}
+
+    @classmethod
+    def from_config(cls, config):
+        """Creates an instance of the model from its config."""
+        models = [keras.saving.deserialize_keras_object(model_config) for model_config in config["models"]]
+        return cls(models=models)
 
 def load_ensemble_model(model_path):
     """Load the ensemble model with the registered class"""
