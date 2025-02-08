@@ -9,7 +9,7 @@ import tempfile
 import os
 
 # Define class labels
-CLASS_LABELS = ["Recyclable Waste", "Organic Waste"]
+CLASS_LABELS = ["Organic Waste", "Recyclable Waste"]
 
 # Load the model from Hugging Face
 @st.cache_resource
