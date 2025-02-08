@@ -1,7 +1,7 @@
 import streamlit as st
 import tensorflow as tf
 import numpy as np
-import cv2
+import cv2 
 import requests
 from huggingface_hub import hf_hub_download
 from PIL import Image
