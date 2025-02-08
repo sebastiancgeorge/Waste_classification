@@ -20,13 +20,28 @@ CLASS_LABELS = ["Recyclable Waste", "Organic Waste"]
 REPO_ID = "sebastiancgeorge/ensembled_waste_classification"
 MODEL_FILENAME = "ensemble_waste_classifier.keras"
 
+
+@keras.saving.register_keras_serializable()
+class EnsembleModel(keras.Model):
+    def __init__(self, models, **kwargs):
+        super().__init__(**kwargs)
+        self.models = models  # List of models
+
+    def call(self, inputs, training=False):
+        predictions = [model(inputs, training=training) for model in self.models]
+        return tf.reduce_mean(tf.stack(predictions, axis=0), axis=0)  # Average predictions
+
+def load_ensemble_model(model_path):
+    """Load the ensemble model with the registered class"""
+    return keras.models.load_model(model_path, custom_objects={"EnsembleModel": EnsembleModel})
+
 @st.cache_resource
 def load_models():
     """Load models from HuggingFace and local storage"""
     try:
         # Download waste classifier from HuggingFace
         model_path = hf_hub_download(repo_id=REPO_ID, filename=MODEL_FILENAME)
-        waste_model = tf.keras.models.load_model(model_path)
+        waste_model = load_ensemble_model(model_path)
 
         # Load YOLO model for object detection
         yolo_model = YOLO("yolov8n.pt")
