@@ -4,6 +4,7 @@ st.set_page_config(page_title="Waste Classifier", layout="wide")
 
 # Import libraries
 import tensorflow as tf
+from tensorflow import keras
 import numpy as np
 import cv2
 from ultralytics import YOLO
