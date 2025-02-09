@@ -2,6 +2,7 @@
 
 This project implements a Convolutional Neural Network (CNN) model to classify waste into different categories to promote effective waste management and recycling. The goal is to help automate the waste segregation process and make it more efficient.
 
+Streamlit App Link : https://sebastiancgeorge-p4wasteclassifier.streamlit.app/
 ---
 ## Features
 - Classifies waste into predefined categories (e.g., recyclable, organic, hazardous, etc.).
